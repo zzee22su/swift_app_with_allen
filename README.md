@@ -15,6 +15,11 @@
 + Label 속성 다루기
 + Button 속성 다루기 
 + colorLiteral 사용하기 -> #colorLiteral(
++ @IBOutlet
+    + 코드에 대한 내용을 배출시키는 배출구, 속성에 대한 값을 스토리보드한테 알려주는 배출구 
++ @IBAction
+    + 버튼을 눌렀을 때 동작이 전달되는 것 (함수를 실행시킨다)
+
 
 2. 앱 - 2 : 주사위 게임
 + 이미지뷰
@@ -33,4 +38,20 @@
 + 프로젝트 파일은 빌드로 저장 -> cmd+b
 + imageLiteral 사용하기 -> #imageLiteral  
 + randomElement() 사용하기
+
+3. 앱 - 3 : 가위바위보 게임
++ 오토 레이아웃 설정하기 -> 제약걸기, 정렬제약
++ 정렬이 필요할 때는 Stack View 사용하기
++ 비율을 조정할 때는 Aspect Ratio 사용하기 (ctrl+자기자신)
++ 비슷한 역할을 하는 함수는 액션(버튼) 여러개를 연결할 수 있다 
++ 데이터 저장을 위한 변수 선언 및 사용
++ enum 사용하기
++ 이미지 초기 세팅 방법
+    + imageLiteral 사용하기 -> #imageLiteral  
+    + UIImage(named : "asset에 저장된 이미지 파일 이름과 확장자를 적어준다.")
++ UIButton 타입의 sender 파라미터 사용하기 
+    + sender.currentTitle 
+        + 버튼스타일이 Plain이 아니라 Default로 설정되어 있어야 사용할 수 있다. 
+        + 버튼을 구분할 때 사용. 
+        
 
