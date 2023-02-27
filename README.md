@@ -52,6 +52,14 @@
 + UIButton 타입의 sender 파라미터 사용하기 
     + sender.currentTitle 
         + 버튼스타일이 Plain이 아니라 Default로 설정되어 있어야 사용할 수 있다. 
-        + 버튼을 구분할 때 사용. 
+        + 버튼을 구분할 때 사용
+        
+4. 앱 - 4 : 맥 앱 
+    + macOs 커맨드 라인 툴 사용하기
+    + 무조건 처음에 main.swift(파일)가 실행된다
+        + 이전의 앱 3개에서는 main.swift 파일이 존재하지 않았다
+            + @main이 main.swift 파일과 동일한 역할을 한다
+            + AppDelegate.swift 파일을 들어가보면 상단에 @main 키워드가 표시되어 있다 
+    + readLine() 사용하기
         
 
