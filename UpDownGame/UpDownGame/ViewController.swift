@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var numberLabel: UILabel!
     
     var comNumber = Int.random(in: 1...10)
-    var myNumber: Int = 1 //버튼을 누르지 않고 'SELECT' 클릭 시, 버튼에 '0'이 없기 때문에 에러가 날 확률이 있기 때문에 에러방지차원에서 '1'로 저장
+//    var myNumber: Int = 1 //버튼을 누르지 않고 'SELECT' 클릭 시, 버튼에 '0'이 없기 때문에 에러가 날 확률이 있기 때문에 에러방지차원에서 '1'로 저장
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +24,15 @@ class ViewController: UIViewController {
     @IBAction func buttonTapped(_ sender: UIButton) {
         guard let numString = sender.currentTitle else { return }
         numberLabel.text = numString
-        guard let num = Int(numString) else { return }
-        myNumber = num
+//        guard let num = Int(numString) else { return }
+//        myNumber = num
     }
     
     @IBAction func selecBtnTapped(_ sender: UIButton) {
+        //숫자레이블에 있는 문자열 가져오기
+        guard let myNumString = numberLabel.text else { return }
+        guard let myNumber = Int(myNumString) else { return }
+
         if comNumber > myNumber {
             mainLabel.text = "Up"
         } else if comNumber < myNumber {
