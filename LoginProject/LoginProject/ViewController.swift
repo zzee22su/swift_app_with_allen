@@ -162,7 +162,8 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             emailInfoLabel.leadingAnchor.constraint(equalTo: emailTextFieldView.leadingAnchor, constant: 8),
             emailInfoLabel.trailingAnchor.constraint(equalTo: emailTextFieldView.trailingAnchor, constant: 8),
-            emailInfoLabel.centerYAnchor.constraint(equalTo: emailTextFieldView.centerYAnchor),
+//            emailInfoLabel.centerYAnchor.constraint(equalTo: emailTextFieldView.centerYAnchor), //이건 고정하는 거
+            emailInfoLabelCenterYConstraint,
             
             emailTextField.leadingAnchor.constraint(equalTo: emailTextFieldView.leadingAnchor, constant: 8),
             emailTextField.trailingAnchor.constraint(equalTo: emailTextFieldView.trailingAnchor, constant: 8),
@@ -171,7 +172,8 @@ class ViewController: UIViewController {
             
             passwordInfoLabel.leadingAnchor.constraint(equalTo: passwordTextFieldView.leadingAnchor, constant: 8),
             passwordInfoLabel.trailingAnchor.constraint(equalTo: passwordTextFieldView.trailingAnchor, constant: -8),
-            passwordInfoLabel.centerYAnchor.constraint(equalTo: passwordTextFieldView.centerYAnchor),
+//            passwordInfoLabel.centerYAnchor.constraint(equalTo: passwordTextFieldView.centerYAnchor),
+            passwordInfoLabelCenterYConstraint,
             
             passwordTextField.topAnchor.constraint(equalTo: passwordTextFieldView.topAnchor, constant: 15),
             passwordTextField.bottomAnchor.constraint(equalTo: passwordTextFieldView.bottomAnchor, constant: -2),
@@ -225,12 +227,21 @@ extension ViewController: UITextFieldDelegate {
         if textField == emailTextField {
             emailTextFieldView.backgroundColor = UIColor.darkGray
             emailInfoLabel.font = UIFont.systemFont(ofSize: 11)
+            // 오토레이아웃 업데이트
+            emailInfoLabelCenterYConstraint.constant = -13
         }
         
         if textField == passwordTextField {
             passwordTextFieldView.backgroundColor = UIColor.darkGray
             passwordInfoLabel.font = UIFont.systemFont(ofSize: 11)
+            // 오토레이아웃 업데이트
+            passwordInfoLabelCenterYConstraint.constant = -13
         }
+        
+        UIView.animate(withDuration: 0.3) {
+            self.stackView.layoutIfNeeded() //스택뷰에 있는 모든 레이아웃에 설정 -> layoutIfNeeded
+        }
+
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -240,7 +251,7 @@ extension ViewController: UITextFieldDelegate {
             
             if emailTextField.text == "" {
                 emailInfoLabel.font = UIFont.systemFont(ofSize: 18)
-//                emailInfoLabelCenterYConstraint.constant = 0
+                emailInfoLabelCenterYConstraint.constant = 0
             }
         }
         
@@ -249,12 +260,11 @@ extension ViewController: UITextFieldDelegate {
             
             if passwordTextField.text == "" {
                 passwordInfoLabel.font = UIFont.systemFont(ofSize: 18)
-//                passwordInfoLabelCenterYConstraint.constant = 0
+                passwordInfoLabelCenterYConstraint.constant = 0
             }
         }
         
-//        // 실제 레이아웃 변경은 애니메이션으로 줄꺼야
-//        UIView.animate(withDuration: 0.3) {
-//            self.stackView.layoutIfNeeded()
-//        }
+        UIView.animate(withDuration: 0.3) {
+            self.stackView.layoutIfNeeded() //스택뷰에 있는 모든 레이아웃에 설정 -> layoutIfNeeded
+        }        
     }}
