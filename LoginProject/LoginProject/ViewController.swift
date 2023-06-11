@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+//final은 더 이상 상속이 이루어지지 못하도록 막는다, 다이렉트 디스패치가 일어남
+final class ViewController: UIViewController {
     //이메일 뷰
     private lazy var emailTextFieldView: UIView = {
         let view = UIView()
@@ -40,7 +41,7 @@ class ViewController: UIViewController {
         textField.autocorrectionType = .no //자동으로 틀린글자 표시
         textField.spellCheckingType = .no //스펠링 체크
         textField.keyboardType = .emailAddress
-        //        textField.addTarget(self, action: #selector(textFieldEditingChanged()), for: <#T##UIControl.Event#>)
+        textField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         return textField
     }()
     
@@ -78,6 +79,7 @@ class ViewController: UIViewController {
         textField.spellCheckingType = .no //스펠링 체크
         textField.isSecureTextEntry = true //비밀번호를 가리는 설정
         textField.clearsOnBeginEditing = false
+        textField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         return textField
     }()
     
@@ -102,7 +104,7 @@ class ViewController: UIViewController {
         button.setTitle("로그인", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.isEnabled = false
-        //        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -219,6 +221,16 @@ class ViewController: UIViewController {
     @objc func passwordSecureModeSetting() {
         passwordTextField.isSecureTextEntry.toggle()
     }
+    
+    @objc func loginButtonTapped() {
+        print("로그인 버튼이 눌렀습니다")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
 }
 
 extension ViewController: UITextFieldDelegate {
@@ -266,5 +278,25 @@ extension ViewController: UITextFieldDelegate {
         
         UIView.animate(withDuration: 0.3) {
             self.stackView.layoutIfNeeded() //스택뷰에 있는 모든 레이아웃에 설정 -> layoutIfNeeded
-        }        
-    }}
+        }
+    }
+    
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        if textField.text?.count == 1 {
+            if textField.text?.first == " " {
+                textField.text = ""
+                return
+            }
+        }
+        guard
+            let email = emailTextField.text, !email.isEmpty,
+            let password = passwordTextField.text, !password.isEmpty else {
+            loginButton.backgroundColor = .clear
+            loginButton.isEnabled = false
+            return
+        }
+        loginButton.backgroundColor = .red
+        loginButton.isEnabled = true
+    }
+    
+}
