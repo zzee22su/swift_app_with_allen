@@ -9,7 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let emailTextFieldlView = UIView()
+    let emailTextFieldlView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor.darkGray
+        view.layer.cornerRadius = 8
+        view.layer.masksToBounds = true
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,10 +23,6 @@ class ViewController: UIViewController {
     }
 
     func makeUI() {
-        emailTextFieldlView.backgroundColor = UIColor.darkGray
-        emailTextFieldlView.layer.cornerRadius = 8
-        emailTextFieldlView.layer.masksToBounds = true
-        
         //기존 뷰가 아닌 다른 뷰를 올리기 위해 필요한 명령어
         view.addSubview(emailTextFieldlView)
         
